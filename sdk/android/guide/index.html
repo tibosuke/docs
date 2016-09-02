@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="utf-8">
+
+  
+  <meta name="viewport" content="width=1040px, user-scalable=yes">
+
+  
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Growthbeat Android Gudeliene | Growthbeat | docs">
+  <meta property="og:url" content="http://support.growthbeat.com/sdk/android/guide/">
+  <meta property="og:description" content="Growthbeat Android の導入方法について説明します">
+  
+  <meta property="article:author" content="" />
+  <meta property="fb:app_id" content="" />
+  <meta property="og:site_name" content="Growthbeat | docs">
+
+  <title>
+      
+        Growthbeat Android Gudeliene | Growthbeat | docs
+      
+  </title>
+
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <link rel="stylesheet" href="http://support.growthbeat.com/css/main.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" />
+</head>
+
+<body>
+
+
+
+  
+
+
+
+
+  
+
+
+<div class="wrapper">
+
+
+
+<header class="navbar-header" role="banner">
+  <div class="container">
+    <nav class="header-nav">
+      <h1 class="logo">
+        <a class="link"href="https://growthbeat.com/">
+          <img src="http://support.growthbeat.com/img/lp_growthbeat_logo_big.png" alt="Growthbeat logo">
+        </a>
+      </h1>
+
+      <div class="search">
+        <input id="algolia-search" type="text" placeholder="サポートページを検索">
+      </div>
+      <div class="inquiry">
+        <a class="link" href="https://growthbeat.com/inquiry">お問い合わせ</a>
+      </div>
+      <div class="login">
+        <a class="link" href="https://growthbeat.com/">Growthbeat</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="navbar-subheader">
+  <div class="container">
+    <ul class="breadcrumb">
+      <li class="item">
+        <a class="link" href="http://support.growthbeat.com/">サポートページ</a>
+      </li>
+      <li class="item">
+        <a class="link" href="http://support.growthbeat.com/sdk/">SDKドキュメント</a>
+      </li>
+      
+      
+        <li class="item"><a class="link">ガイド</a></li>
+      
+      
+    </ul>
+  </div>
+</section>
+
+
+
+<div class="content">
+  <div class="container">
+
+<div class="page">
+  <h1 class="title">
+    
+      ガイド
+　　 
+    <span class="updated">最終更新日 Wed, Jun 29, 2016</span>
+  </h1>
+  <a class="edit" href="https://github.com/growthbeat/docs/blob/master/content/sdk/android/guide.md">Edit on GitHub</a>
+</div>
+
+
+<section class="row markdown">
+    <div class="column column-sidebar">
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#共通初期設定">共通初期設定</a>
+<ul>
+<li><a href="#sdk導入">SDK導入</a>
+<ul>
+<li><a href="#gradleを使用して導入する場合">Gradleを使用して導入する場合</a></li>
+<li><a href="#手動でsdkを配置して導入する場合">手動でSDKを配置して導入する場合</a></li>
+</ul></li>
+<li><a href="#google-play-servicesの導入">Google Play Servicesの導入</a>
+<ul>
+<li><a href="#動作バージョン">動作バージョン</a></li>
+<li><a href="#導入設定">導入設定</a>
+<ul>
+<li><a href="#gradle-android-studioでsdkを導入した場合">Gradle、Android StudioでSDKを導入した場合</a></li>
+<li><a href="#eclipseでsdkを導入した場合">EclipseでSDKを導入した場合</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#androidmanifest-xmlの設定">AndroidManifest.xmlの設定</a>
+<ul>
+<li><a href="#パーミッションの設定">パーミッションの設定</a></li>
+<li><a href="#growthbeatの設定">Growthbeatの設定</a></li>
+</ul></li>
+<li><a href="#初期化">初期化</a></li>
+</ul></li>
+<li><a href="#プッシュ通知">プッシュ通知</a>
+<ul>
+<li><a href="#デバイストークンを取得-送信をする">デバイストークンを取得・送信をする</a></li>
+<li><a href="#タグ-イベントを送信する">タグ・イベントを送信する。</a>
+<ul>
+<li><a href="#タグ送信">タグ送信</a></li>
+<li><a href="#イベント送信">イベント送信</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#アプリ内メッセージ">アプリ内メッセージ</a>
+<ul>
+<li><a href="#メッセージを作成する">メッセージを作成する</a></li>
+<li><a href="#メッセージを表示する">メッセージを表示する</a></li>
+</ul></li>
+<li><a href="#ディープリンク">ディープリンク</a>
+<ul>
+<li><a href="#growthlink用設定">GrowthLink用設定</a></li>
+<li><a href="#ディープリンクアクションの実装">ディープリンクアクションの実装</a></li>
+</ul></li>
+<li><a href="#growthbeat-sdk-1-xからの変更点">Growthbeat SDK 1.xからの変更点</a>
+<ul>
+<li><a href="#機能削除">機能削除</a></li>
+<li><a href="#実装変更点">実装変更点</a>
+<ul>
+<li><a href="#初期化-1">初期化</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#growth-push-sdkからの乗り換え方法について">Growth Push SDKからの乗り換え方法について</a>
+<ul>
+<li><a href="#前準備">前準備</a></li>
+<li><a href="#注意点">注意点</a></li>
+<li><a href="#実装方法">実装方法</a>
+<ul>
+<li><a href="#sdkの初期化">SDKの初期化</a></li>
+<li><a href="#androidmanifest-xml">AndroidManifest.xml</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#備考">備考</a></li>
+</ul>
+</nav>
+    </div>
+    <div class="column column-main">
+      <div class="typeset">
+        
+
+<p>Version 2.0.4</p>
+
+<h1 id="共通初期設定">共通初期設定</h1>
+
+<h2 id="sdk導入">SDK導入</h2>
+
+<p>Growthbeat SDKで、Growthbeat全てのサービスの機能が利用できます。</p>
+
+<h3 id="gradleを使用して導入する場合">Gradleを使用して導入する場合</h3>
+
+<p>build.gradleに下記を追加してください。</p>
+
+<pre><code>repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'com.growthbeat:growthbeat-android:2.0.4@aar'
+}
+</code></pre>
+
+<h3 id="手動でsdkを配置して導入する場合">手動でSDKを配置して導入する場合</h3>
+
+<p><a href="http://support.growthbeat.com/sdk/">最新版Android SDK ダウンロードページ</a></p>
+
+<p>上記リンクからダウンロードしたjarファイルをプロジェクトへ組み込みます。任意のアプリのプロジェクトに, Androidが他ライブラリを自動で参照する<strong>libs</strong>ディレクトリの中に、jarファイルを移動もしくはコピーしてください。</p>
+
+<h2 id="google-play-servicesの導入">Google Play Servicesの導入</h2>
+
+<ul>
+<li><a href="https://developers.google.com/android/guides/setup?hl=ja#add_google_play_services_to_your_project">Google公式ドキュメント</a></li>
+</ul>
+
+<h3 id="動作バージョン">動作バージョン</h3>
+
+<p>Google Play Services v8.3以上が必要となります。</p>
+
+<p>Growthbeat SDKでは、Google Play Services v8.3以上でないと、正しく動作いたしません。</p>
+
+<h3 id="導入設定">導入設定</h3>
+
+<p>AndroidManifest.xmlの<code>&lt;application&gt;</code>内に以下を追加</p>
+
+<pre><code class="language-xml">&lt;meta-data
+    android:name=&quot;com.google.android.gms.version&quot;
+    android:value=&quot;@integer/google_play_services_version&quot; /&gt;
+</code></pre>
+
+<h4 id="gradle-android-studioでsdkを導入した場合">Gradle、Android StudioでSDKを導入した場合</h4>
+
+<p>build.gradleに下記を追加してください。バージョンはAndroidのデベロッパーサイトで確認するようにしてください。</p>
+
+<pre><code>dependencies {
+    compile 'com.google.android.gms:play-services:9.2.1'
+}
+</code></pre>
+
+<h4 id="eclipseでsdkを導入した場合">EclipseでSDKを導入した場合</h4>
+
+<p>ライブラリプロジェクトとして、google_play_service_libをビルドパスに設定してください。</p>
+
+<p>ライブラリプロジェクトの設定方法は、Google公式ドキュメントの「Eclipse With ADT」のメニューを参考にしてください。</p>
+
+<h2 id="androidmanifest-xmlの設定">AndroidManifest.xmlの設定</h2>
+
+<h3 id="パーミッションの設定">パーミッションの設定</h3>
+
+<ul>
+<li>Google play Servicesの設定項目</li>
+</ul>
+
+<pre><code class="language-xml">&lt;meta-data
+    android:name=&quot;com.google.android.gms.version&quot;
+    android:value=&quot;@integer/google_play_services_version&quot; /&gt;
+</code></pre>
+
+<p>必要なパーミンションは下記になります。</p>
+
+<pre><code class="language-xml">&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;
+
+&lt;!-- for Growth Push --&gt;
+&lt;uses-permission android:name=&quot;com.google.android.c2dm.permission.RECEIVE&quot; /&gt;
+&lt;uses-permission android:name=&quot;android.permission.VIBRATE&quot; /&gt;
+&lt;uses-permission android:name=&quot;YOUR_PACKAGE_NAME.permission.C2D_MESSAGE&quot; /&gt;
+&lt;permission
+    android:name=&quot;YOUR_PACKAGE_NAME.permission.C2D_MESSAGE&quot;
+    android:protectionLevel=&quot;signature&quot; /&gt;
+
+</code></pre>
+
+<h3 id="growthbeatの設定">Growthbeatの設定</h3>
+
+<p><code>&lt;application&gt;</code>タグ内に下記を追加してください。</p>
+
+<pre><code class="language-xml">
+&lt;!-- for Growth Push --&gt;
+&lt;activity
+    android:name=&quot;com.growthpush.view.AlertActivity&quot;
+    android:configChanges=&quot;orientation|keyboardHidden&quot;
+    android:launchMode=&quot;singleInstance&quot;
+    android:theme=&quot;@android:style/Theme.Translucent&quot; /&gt;
+&lt;service
+    android:name=&quot;com.growthpush.TokenRefreshService&quot;
+    android:exported=&quot;false&quot;&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.google.android.gms.iid.InstanceID&quot;/&gt;
+    &lt;/intent-filter&gt;
+&lt;/service&gt;
+&lt;service android:name=&quot;com.growthpush.RegistrationIntentService&quot;/&gt;
+&lt;service
+    android:name=&quot;com.growthpush.ReceiverService&quot;
+    android:exported=&quot;false&quot; &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.google.android.c2dm.intent.RECEIVE&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/service&gt;
+&lt;receiver
+    android:name=&quot;com.google.android.gms.gcm.GcmReceiver&quot;
+    android:exported=&quot;true&quot;
+    android:permission=&quot;com.google.android.c2dm.permission.SEND&quot; &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.google.android.c2dm.intent.RECEIVE&quot; /&gt;
+        &lt;category android:name=&quot;YOUR_PACKAGE_NAME&quot; /&gt;
+    &lt;/intent-filter&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.google.android.c2dm.intent.REGISTRATION&quot; /&gt;
+        &lt;category android:name=&quot;YOUR_PACKAGE_NAME&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;
+
+&lt;!-- for Growth Message --&gt;
+&lt;activity
+    android:name=&quot;com.growthbeat.message.view.MessageActivity&quot;
+    android:theme=&quot;@android:style/Theme.Translucent&quot; /&gt;
+
+&lt;!-- for Growth Link --&gt;
+&lt;receiver
+    android:name=&quot;com.growthbeat.link.InstallReferrerReceiver&quot;
+    android:enabled=&quot;true&quot;
+    android:exported=&quot;true&quot; &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.android.vending.INSTALL_REFERRER&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;
+
+</code></pre>
+
+<ul>
+<li>YOUR_PACKAGE_NAMEは、実装するアプリのパッケージ名に変更してください。</li>
+</ul>
+
+<p>AndroidManifest.xmlのサンプルは、<a href="https://github.com/growthbeat/growthbeat-android/blob/master/sample/src/main/AndroidManifest.xml">サンプルコード</a>を参考にしてください。</p>
+
+<h2 id="初期化">初期化</h2>
+
+<p>GrowthbeatおよびGrowthPushの初期化を行います。初期化の中に、端末の基本情報の送信、広告IDの取得が行われます。</p>
+
+<pre><code class="language-java">GrowthPush.getInstance().initialize(context, &quot;YOUR_APPLICATION_ID&quot;, &quot;YOUR_CREDENTIAL_ID&quot;, BuildConfig.DEBUG ? Environment.development : Environment.production);
+</code></pre>
+
+<h1 id="プッシュ通知">プッシュ通知</h1>
+
+<p>Growth Push管理画面の証明書設定ページにて、各OSごとに証明書の設定を行ってください。</p>
+
+<p><a href="http://growthbeat.helpscoutdocs.com/article/23-gcm-api">Android SenderId, APIキー取得方法</a></p>
+
+<h2 id="デバイストークンを取得-送信をする">デバイストークンを取得・送信をする</h2>
+
+<p>Growthbeatの初期化後に下記を呼び出して、デバイストークンの取得を行います。</p>
+
+<pre><code class="language-java">GrowthPush.getInstance().requestRegistrationId(&quot;YOUR_SENDER_ID&quot;);
+</code></pre>
+
+<p>登録されたデバイスは管理画面のデバイスページにて確認することができます。下記のように、デバイスのステータスがアクティブ（Active）で登録されていれば正常です。</p>
+
+<p><img src="/img/push/push_device_list.png" alt="push_device_list" title="push-device-list" width="100%"/></p>
+
+<ul>
+<li>YOUR_SENDER_IDは、AndroidのSenderId</li>
+</ul>
+
+<h2 id="タグ-イベントを送信する">タグ・イベントを送信する。</h2>
+
+<p>セグメント配信を利用する際に、実装が必要となります。</p>
+
+<p><a href="/manual/growthpush/#セグメントの作成">配信したいセグメント</a>に沿って、タグやイベントの紐付けを行ってください。</p>
+
+<h3 id="タグ送信">タグ送信</h3>
+
+<pre><code class="language-java">GrowthPush.getInstance().setTag(&quot;TagName&quot;, &quot;TagValue&quot;);
+</code></pre>
+
+<p><a href="/sdk/android/reference/#タグの送信">setTagメソッドについて</a></p>
+
+<h3 id="イベント送信">イベント送信</h3>
+
+<pre><code class="language-java">GrowthPush.getInstance().trackEvent(&quot;EventName&quot;);
+</code></pre>
+
+<p><a href="/sdk/android/reference/#イベントの送信">trackEventメソッドについて</a></p>
+
+<h1 id="アプリ内メッセージ">アプリ内メッセージ</h1>
+
+<h2 id="メッセージを作成する">メッセージを作成する</h2>
+
+<p>ここではアプリの起動時にメッセージを出す方法を説明します（共通初期設定でアプリの起動イベントを送信している必要があります）。</p>
+
+<p>まず、管理画面にてアプリ起動時に配信されるメッセージを作成します。メッセージの作成方法は<a href="/manual/growthmessage/#配信作成">こちら</a>を参考にしてください。</p>
+
+<p>アプリ起動以外にも、カスタムイベントをメッセージ配信のトリガーにすることにより、アプリの任意の場所でメッセージを配信することができます。詳しくは、<a href="/sdk/android/reference/#カスタムイベント送信">こちら</a>をご参照ください。</p>
+
+<h2 id="メッセージを表示する">メッセージを表示する</h2>
+
+<p>Growth Pushのイベント送信と連動して、メッセージを受信します。</p>
+
+<p>イベント名に紐付いたメッセージを作成するだけで、メッセージ表示することはできます。デフォルトでは、メッセージ受信時に即時に表示します。</p>
+
+<p><code>ShowMessageHandler</code> を利用することで、表示準備が完了したときに、メッセージ表示をすることができます。</p>
+
+<p>例.) 起動時に、メッセージを表示する場合</p>
+
+<pre><code class="language-java">GrowthPush.getInstance().trackEvent(&quot;Launch&quot;, null, new ShowMessageHandler() {
+
+	@Override
+	public void complete(MessageRenderHandler renderHandler) {
+        // 画面の表示
+		renderHandler.render();
+	}
+
+	@Override
+	public void error(String error) {
+        // errorはエラーメッセージが返ります。
+	}
+});
+</code></pre>
+
+<h1 id="ディープリンク">ディープリンク</h1>
+
+<h2 id="growthlink用設定">GrowthLink用設定</h2>
+
+<p>Growthbeatの初期化処理の後に、Growth Linkの初期化処理を追加してください。</p>
+
+<pre><code class="language-java">GrowthLink.getInstance().initialize(getApplicationContext(), &quot;YOUR_APPLICATION_ID&quot;, &quot;YOUR_CREDENTIAL_ID&quot;);
+</code></pre>
+
+<p>IntentFilterを設定したActivityのonCreateで、handleOpenUrlメソッドを呼び出してください。</p>
+
+<pre><code class="language-java">GrowthLink.getInstance().handleOpenUrl(getIntent().getData());
+</code></pre>
+
+<p><strong>カスタムスキームの設定</strong></p>
+
+<p>AndroidManifestのアクティビティーに <code>&lt;intent-filter&gt;</code> を追加します。</p>
+
+<p>外部からの遷移時、開くActivityにカスタムURLスキームを記述します。</p>
+
+<pre><code class="language-xml">&lt;activity
+    android:name=&quot;.MainActivity&quot;
+    android:label=&quot;@string/app_name&quot; &gt;
+    &lt;intent-filter&gt;
+    	&lt;data android:scheme=&quot;CUSTOM_URL_SCHEME&quot; /&gt;
+    	&lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;
+    	&lt;category android:name=&quot;android.intent.category.BROWSABLE&quot; /&gt;
+        &lt;action android:name=&quot;android.intent.action.VIEW&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/activity&gt;
+</code></pre>
+
+<p><strong>InstallReferrerReceiverの追加</strong></p>
+
+<p>AndroidManifestの<code>&lt;application/&gt;</code>内に以下のコードを追加してください</p>
+
+<pre><code class="language-xml">&lt;receiver
+    android:name=&quot;com.growthbeat.link.InstallReferrerReceiver&quot;
+    android:enabled=&quot;true&quot;
+    android:exported=&quot;true&quot; &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.android.vending.INSTALL_REFERRER&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;
+</code></pre>
+
+<h2 id="ディープリンクアクションの実装">ディープリンクアクションの実装</h2>
+
+<p>SDKには、IntentHandler (iOSでは、GBIntentHandler)というインタフェースが定義されており、この実装でディープリンク時のアクションを実装することができます。</p>
+
+<p>たとえば下記のような形で実装できます。</p>
+
+<pre><code class="language-java">List&lt;IntentHandler&gt; intentHandlers = new ArrayList&lt;IntentHandler&gt;();
+intentHandlers.add(new UrlIntentHandler(Growthbeat.getInstance().getContext()));
+intentHandlers.add(new NoopIntentHandler());
+intentHandlers.add(new IntentHandler() {
+    public boolean handle(com.growthbeat.model.Intent intent) {
+        if (intent.getType() != com.growthbeat.model.Intent.Type.custom)
+            return false;
+        Map&lt;String, String&gt; extra = ((CustomIntent) intent).getExtra();
+        // TODO ここにアプリ内の画面を開く処理を実装します。
+        Log.d(&quot;Growth Link&quot;, &quot;extra: &quot; + extra);
+        return true;
+    }
+});
+Growthbeat.getInstance().setIntentHandlers(intentHandlers);
+</code></pre>
+
+<h1 id="growthbeat-sdk-1-xからの変更点">Growthbeat SDK 1.xからの変更点</h1>
+
+<h2 id="機能削除">機能削除</h2>
+
+<ul>
+<li><p>インターフェスの変更があります。</p>
+
+<ul>
+<li>次の実装変更点でご確認ください。</li>
+</ul></li>
+
+<li><p>GrowthAnalyticsクラスがなくなりました。</p>
+
+<ul>
+<li>2.x以降は、GrowthPush#setTag, trackEventをご利用ください。</li>
+</ul></li>
+
+<li><p>GrowthbeatCoreクラスが、Growthbeatクラスに統合されました。</p>
+
+<ul>
+<li>start, stop, initializeは削除されました。</li>
+</ul></li>
+</ul>
+
+<h2 id="実装変更点">実装変更点</h2>
+
+<h3 id="初期化-1">初期化</h3>
+
+<ul>
+<li>Growthbeat 1.x</li>
+</ul>
+
+<pre><code class="language-java">protected void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+
+    //...
+
+    Growthbeat.getInstance().initialize(this, &quot;YOUR_APPLICATION_ID&quot;, &quot;CREDENTIAL_ID&quot;);
+    GrowthPush.getInstance().requestRegistrationId(&quot;YOUR_SENDER_ID&quot;, BuildConfig.DEBUG ? Environment.development : Environment.production);
+    Growthbeat.getInstance().getClient(new Growthbeat.ClientCallback() {
+            @Override
+            public void callback(Client client) {
+                Log.d(&quot;GrowthbeatSample&quot;, String.format(&quot;clientId is %s&quot;, client.getId()));
+            }
+        });
+    Growthbeat.getInstance().start();
+
+}
+
+protected void onStop() {
+    super.onStop();
+    Growthbeat.getInstance().stop();
+}
+</code></pre>
+
+<ul>
+<li>Growthbeat 2.x</li>
+</ul>
+
+<pre><code class="language-java">protected void onCreate(Bundle savedInstanceState) {
+
+    super.onCreate(savedInstanceState);
+
+    //...
+    Growthbeat.getInstance().initialize(this, &quot;YOUR_APPLICATION_ID&quot;, &quot;CREDENTIAL_ID&quot;, BuildConfig.DEBUG ? Environment.development : Environment.production);
+	GrowthPush.getInstance().requestRegistrationId(&quot;YOUR_SENDER_ID&quot;);
+    new Thread(new Runnable() {
+        @Override
+        public void run() {
+            Client client = Growthbeat.getInstance().waitClient();
+            Log.d(&quot;GrowthbeatSample&quot;, String.format(&quot;clientId is %s&quot;, client.getId()));
+        }
+    }).start();
+
+}
+
+protected void onDestroy() {
+    super.onDestroy();
+}
+</code></pre>
+
+<h1 id="growth-push-sdkからの乗り換え方法について">Growth Push SDKからの乗り換え方法について</h1>
+
+<h2 id="前準備">前準備</h2>
+
+<p>GrowthPushのApplicationIdから、GrowthbeatのApplicationIdに移行されるた
+め、<a href="https://growthbeat.com/">Growthbeat</a>にアクセスして、ApplicationId、SDKキー（CredentialID）を確認します。</p>
+
+<p>ApplicationIdについては、Growth　Pushの左メニュー、シークレットキーのgrowthbeatApplicationIdという項目の左の文字列をご利用ください。</p>
+
+<p>SDKキーに関しては、Growthbeatマイページにてご確認ください。</p>
+
+<h2 id="注意点">注意点</h2>
+
+<p>これまでGrowth Pushでご利用いただいた、ApplicationIdは数値型、シークレットキーは文字列になっています。</p>
+
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>型</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>applicationId</td>
+<td>数値型</td>
+</tr>
+
+<tr>
+<td>secret</td>
+<td>文字列型/32文字</td>
+</tr>
+</tbody>
+</table>
+
+<p>Growthbeat SDKで利用するものは、applicationId、credentialIdともに文字列型になっています。</p>
+
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>型</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>applicationId</td>
+<td>文字列型/16文字</td>
+</tr>
+
+<tr>
+<td>credentailId</td>
+<td>文字列型/32文字</td>
+</tr>
+</tbody>
+</table>
+
+<p>Growthbeat SDK乗り換え時に、これまでGrowth Pushで利用していたシークレットキーを設定しても、正しく動作しませんのでご注意くださいませ。</p>
+
+<p>必ず、SDKキーをご利用ください。</p>
+
+<h2 id="実装方法">実装方法</h2>
+
+<h3 id="sdkの初期化">SDKの初期化</h3>
+
+<ul>
+<li>GrowthPush SDK</li>
+</ul>
+
+<pre><code class="language-java">protected void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+	setContentView(R.layout.activity_main);
+
+	GrowthPush.getInstance().initialize(this, YOUR_APPLICATION_ID, &quot;APPLICATION_SECRET&quot;, BuildConfig.DEBUG ? Environment.development : Environment.production, true).register(&quot;YOUR_SENDER_ID&quot;);
+	GrowthPush.getInstance().trackEvent(&quot;Launch&quot;);
+	GrowthPush.getInstance().setDeviceTags();
+}
+</code></pre>
+
+<ul>
+<li>Growthbeat SDK</li>
+</ul>
+
+<pre><code class="language-java">protected void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+	setContentView(R.layout.activity_main);
+	// Growthbeat SDKの初期化
+	Growthbeat.getInstance().initialize(this, &quot;YOUR_APPLICATION_ID&quot;, &quot;CREDENTIAL_ID&quot;, BuildConfig.DEBUG ? Environment.development : Environment.production);
+	// Registration IDを明示的に要求
+	GrowthPush.getInstance().requestRegistrationId(&quot;YOUR_SENDER_ID&quot;);
+	// Launchイベントの取得
+	GrowthPush.getInstance().trackEvent(&quot;Launch&quot;);
+}
+</code></pre>
+
+<h3 id="androidmanifest-xml">AndroidManifest.xml</h3>
+
+<p>Growthbeat SDKでは、 <code>com.growthpush.BroadcastReceiver</code>が廃止になりましたので、変更が必要となります。</p>
+
+<p>この変更を行わないと、正しくプッシュ通知が送信できなくなりますので、ご注意ください。</p>
+
+<ul>
+<li>GrowthPush SDK</li>
+</ul>
+
+<pre><code class="language-xml">&lt;receiver
+    android:name=&quot;com.growthpush.BroadcastReceiver&quot;
+    android:permission=&quot;com.google.android.c2dm.permission.SEND&quot; &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.google.android.c2dm.intent.RECEIVE&quot; /&gt;
+        &lt;action android:name=&quot;com.google.android.c2dm.intent.REGISTRATION&quot; /&gt;
+
+        &lt;category android:name=&quot;YOUR_PACKAGE_NAME&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;
+</code></pre>
+
+<ul>
+<li>Growthbeat SDK</li>
+</ul>
+
+<pre><code class="language-xml">&lt;service
+    android:name=&quot;com.growthpush.TokenRefreshService&quot;
+    android:exported=&quot;false&quot;&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.google.android.gms.iid.InstanceID&quot;/&gt;
+    &lt;/intent-filter&gt;
+&lt;/service&gt;
+&lt;service android:name=&quot;com.growthpush.RegistrationIntentService&quot;/&gt;
+&lt;service
+    android:name=&quot;com.growthpush.ReceiverService&quot;
+    android:exported=&quot;false&quot; &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.google.android.c2dm.intent.RECEIVE&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/service&gt;
+&lt;receiver
+    android:name=&quot;com.google.android.gms.gcm.GcmReceiver&quot;
+    android:exported=&quot;true&quot;
+    android:permission=&quot;com.google.android.c2dm.permission.SEND&quot; &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.google.android.c2dm.intent.RECEIVE&quot; /&gt;
+        &lt;category android:name=&quot;YOUR_PACKAGE_NAME&quot; /&gt;
+    &lt;/intent-filter&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.google.android.c2dm.intent.REGISTRATION&quot; /&gt;
+        &lt;category android:name=&quot;YOUR_PACKAGE_NAME&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;
+</code></pre>
+
+<h1 id="備考">備考</h1>
+
+<p>実装サンプルは、<a href="https://github.com/growthbeat/growthbeat-android">GitHubレポジトリ</a>を参考にしてください。</p>
+
+<p>ご不明な点などございます場合は、<a href="http://growthbeat.helpscoutdocs.com/">ヘルプページ</a>を閲覧してください。</p>
+
+      </div>
+    </div>
+</section>
+
+
+  </div>
+</div>
+
+
+<footer class="footer">
+  <small class="copyright">Designed by SIROK</small>
+</footer>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+<script src="http://support.growthbeat.com/js/sirok-scrollspy.js"></script>
+<script>
+$(function() {
+  $('pre code, code').each(function(i, block) {
+    hljs.highlightBlock(block)
+  });
+
+  var sidebar = $('.column-sidebar');
+  var offset = sidebar.offset();
+
+  $(window).scroll(function () {
+    if ($(window).scrollTop() > offset.top - 20) {
+      sidebar.addClass('fixed');
+    } else {
+      sidebar.removeClass('fixed');
+    }
+  });
+
+  sidebar.find('ul').addClass('spy-nav');
+
+  $(document.body).scrollspy({
+    target: '#TableOfContents',
+  });
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+<script type="text/javascript">
+docsearch({
+ apiKey: '11fef466694af89257b9dc61a7b7fa20',
+ indexName: 'growthbeat',
+ inputSelector: '#algolia-search'
+});
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-56017268-6', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
+
+</div>
+</body>
+</html>

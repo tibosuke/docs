@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="utf-8">
+
+  
+  <meta name="viewport" content="width=1040px, user-scalable=yes">
+
+  
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Growthbeat iOS Gudeliene | Growthbeat | docs">
+  <meta property="og:url" content="http://support.growthbeat.com/sdk/ios/guide/">
+  <meta property="og:description" content="Growthbeat iOS の導入方法について説明します">
+  
+  <meta property="article:author" content="" />
+  <meta property="fb:app_id" content="" />
+  <meta property="og:site_name" content="Growthbeat | docs">
+
+  <title>
+      
+        Growthbeat iOS Gudeliene | Growthbeat | docs
+      
+  </title>
+
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <link rel="stylesheet" href="http://support.growthbeat.com/css/main.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" />
+</head>
+
+<body>
+
+
+
+  
+
+
+
+
+  
+
+
+<div class="wrapper">
+
+
+
+<header class="navbar-header" role="banner">
+  <div class="container">
+    <nav class="header-nav">
+      <h1 class="logo">
+        <a class="link"href="https://growthbeat.com/">
+          <img src="http://support.growthbeat.com/img/lp_growthbeat_logo_big.png" alt="Growthbeat logo">
+        </a>
+      </h1>
+
+      <div class="search">
+        <input id="algolia-search" type="text" placeholder="サポートページを検索">
+      </div>
+      <div class="inquiry">
+        <a class="link" href="https://growthbeat.com/inquiry">お問い合わせ</a>
+      </div>
+      <div class="login">
+        <a class="link" href="https://growthbeat.com/">Growthbeat</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="navbar-subheader">
+  <div class="container">
+    <ul class="breadcrumb">
+      <li class="item">
+        <a class="link" href="http://support.growthbeat.com/">サポートページ</a>
+      </li>
+      <li class="item">
+        <a class="link" href="http://support.growthbeat.com/sdk/">SDKドキュメント</a>
+      </li>
+      
+      
+        <li class="item"><a class="link">ガイド</a></li>
+      
+      
+    </ul>
+  </div>
+</section>
+
+
+
+<div class="content">
+  <div class="container">
+
+<div class="page">
+  <h1 class="title">
+    
+      ガイド
+　　 
+    <span class="updated">最終更新日 Sun, Sep 27, 2015</span>
+  </h1>
+  <a class="edit" href="https://github.com/growthbeat/docs/blob/master/content/sdk/ios/guide.md">Edit on GitHub</a>
+</div>
+
+
+<section class="row markdown">
+    <div class="column column-sidebar">
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#共通初期設定">共通初期設定</a>
+<ul>
+<li><a href="#sdk導入">SDK導入</a>
+<ul>
+<li><a href="#cocoapodsを使用して導入する場合">CocoaPodsを使用して導入する場合</a></li>
+<li><a href="#手動で-sdk-を配置して導入する場合">手動で SDK を配置して導入する場合</a></li>
+<li><a href="#import">import</a></li>
+<li><a href="#依存について">依存について</a></li>
+</ul></li>
+<li><a href="#growthbeat-の初期化">Growthbeat の初期化</a></li>
+</ul></li>
+<li><a href="#プッシュ通知">プッシュ通知</a>
+<ul>
+<li><a href="#プッシュ通知用の証明書の作成">プッシュ通知用の証明書の作成</a></li>
+<li><a href="#デバイストークンを取得-送信をする">デバイストークンを取得・送信をする</a></li>
+<li><a href="#タグ-イベントを送信する">タグ・イベントを送信する。</a>
+<ul>
+<li><a href="#タグ送信">タグ送信</a></li>
+<li><a href="#イベント送信">イベント送信</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#アプリ内メッセージ">アプリ内メッセージ</a>
+<ul>
+<li><a href="#メッセージを作成する">メッセージを作成する。</a></li>
+<li><a href="#メッセージを表示する">メッセージを表示する</a></li>
+</ul></li>
+<li><a href="#ディープリンク">ディープリンク</a>
+<ul>
+<li><a href="#初期設定">初期設定</a></li>
+<li><a href="#初期化処理">初期化処理</a></li>
+<li><a href="#プロジェクト設定">プロジェクト設定</a>
+<ul>
+<li><a href="#アプリを開くスキームの設定">アプリを開くスキームの設定</a></li>
+<li><a href="#バージョンの設定">バージョンの設定</a></li>
+<li><a href="#universal-links用の設定-ios9-x系">Universal Links用の設定 (iOS9.x系)</a>
+<ul>
+<li><a href="#apple-developer-com-での設定">apple.developer.com での設定</a></li>
+<li><a href="#xcode上-での設定">Xcode上 での設定</a></li>
+<li><a href="#universallinksの取得実装について">UniversalLinksの取得実装について</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#ディープリンクアクションの実装">ディープリンクアクションの実装</a>
+<ul>
+<li><a href="#growthlink管理画面上-での設定">GrowthLink管理画面上 での設定</a></li>
+<li><a href="#検証の際の注意点">検証の際の注意点</a></li>
+<li><a href="#ランディングページを挟む場合の注意点">ランディングページを挟む場合の注意点</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#growthbeat-sdk-1-xからの変更点">Growthbeat SDK 1.xからの変更点</a>
+<ul>
+<li><a href="#機能削除">機能削除</a></li>
+<li><a href="#実装変更点">実装変更点</a>
+<ul>
+<li><a href="#初期化">初期化</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#growth-push-sdkからの乗り換え方法について">Growth Push SDKからの乗り換え方法について</a>
+<ul>
+<li><a href="#前準備">前準備</a></li>
+<li><a href="#注意点">注意点</a></li>
+<li><a href="#実装方法">実装方法</a>
+<ul>
+<li><a href="#sdkの初期化">SDKの初期化</a></li>
+<li><a href="#アプリ起動時">アプリ起動時</a></li>
+<li><a href="#タグ-イベントの取得">タグ・イベントの取得</a></li>
+</ul></li>
+<li><a href="#移行確認方法">移行確認方法</a></li>
+</ul></li>
+<li><a href="#備考">備考</a></li>
+</ul>
+</nav>
+    </div>
+    <div class="column column-main">
+      <div class="typeset">
+        
+
+<p>Version 2.0.4</p>
+
+<h1 id="共通初期設定">共通初期設定</h1>
+
+<p>推奨環境</p>
+
+<p>iOS 8.0以上</p>
+
+<h2 id="sdk導入">SDK導入</h2>
+
+<p>Growthbeat SDKで、Growthbeat 全てのサービスの機能が利用できます。</p>
+
+<p>Objective-C での導入方法について記載しております。</p>
+
+<h3 id="cocoapodsを使用して導入する場合">CocoaPodsを使用して導入する場合</h3>
+
+<p>Podfile に下記を記述し <code>pod install</code> を実行してください:</p>
+
+<pre><code>pod 'Growthbeat'
+</code></pre>
+
+<h3 id="手動で-sdk-を配置して導入する場合">手動で SDK を配置して導入する場合</h3>
+
+<p><a href="/sdk">最新版iOS SDK ダウンロードページ</a></p>
+
+<p>ダウンロードしたファイルを解凍し、そのフォルダの中の <strong>Growthbeat.framework</strong> をプロジェクトへ組み込みます。
+任意のXcodeプロジェクトを開き Growthbeat.framework をインポートしてください。</p>
+
+<p>Growthbeat.framework のインポートの方法は以下の２つです:</p>
+
+<ol>
+<li>Xcodeプロジェクトに Growthbeat.framework をドラッグアンドドロップする</li>
+<li>Bulid Phases -&gt; Link Binary With Libraries の + ボタンを押し、Add Other&hellip;からGrowthbeat.frameworkを選択する</li>
+</ol>
+
+<h3 id="import">import</h3>
+
+<p>Growthbeat の import 文を記述します。</p>
+
+<pre><code class="language-objc">#import &lt;Growthbeat/Growthbeat.h&gt;
+</code></pre>
+
+<h3 id="依存について">依存について</h3>
+
+<p>Growthbeat.framework は、下記 Framework が必須となります:</p>
+
+<ul>
+<li>Foundation.framework</li>
+<li>UIKit.framework</li>
+<li>CoreGraphics.framework</li>
+<li>SystemConfiguration.framework</li>
+<li>AdSupport.framework</li>
+<li>CFNetwork.framework</li>
+<li>SafariServices.framework</li>
+</ul>
+
+<h2 id="growthbeat-の初期化">Growthbeat の初期化</h2>
+
+<p>Growthbeat および Growth Push の初期化を行います。初期化では、デバイス登録、認証、および端末の基本情報の送信が行われます。</p>
+
+<pre><code class="language-objc">[[GrowthPush sharedInstance] initializeWithApplicationId:@&quot;YOUR_APLICATION_ID&quot; credentialId:@&quot;YOUR_CREDENTIAL_ID&quot; environment:kGrowthPushEnvironment];
+</code></pre>
+
+<p>Growth Push SDKからの乗り換えの場合は、<a href="#growth-push-sdkからの乗り換え方法について">こちら</a>も参照してください。</p>
+
+<h1 id="プッシュ通知">プッシュ通知</h1>
+
+<h2 id="プッシュ通知用の証明書の作成">プッシュ通知用の証明書の作成</h2>
+
+<p>Growth Push 管理画面にて、各 OS ごとに証明書の設定を行ってください。詳しくは、<a href="http://growthhack.sirok.co.jp/growthpush/ios-p12/">iOS プッシュ通知証明書作成方法</a>をご参照ください。</p>
+
+<h2 id="デバイストークンを取得-送信をする">デバイストークンを取得・送信をする</h2>
+
+<p>Growthbeat の初期化後に下記を呼び出して、デバイストークンの取得を行います。</p>
+
+<pre><code class="language-objc">[[GrowthPush sharedInstance] requestDeviceToken];
+</code></pre>
+
+<p><code>- (void)application:(UIApplication *)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken</code> にて下記のように実装して、デバイストークンを送信します。</p>
+
+<pre><code class="language-objc">- (void)application:(UIApplication *)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    [[GrowthPush sharedInstance] setDeviceToken:deviceToken];
+}
+</code></pre>
+
+<p>登録されたデバイスは管理画面のデバイスページにて確認することができます。下記のように、デバイスのステータスがアクティブ（Active）で登録されていれば正常です。</p>
+
+<p><img src="/img/push/push_device_list.png" alt="push_device_list" title="push-device-list" width="100%"/></p>
+
+<h2 id="タグ-イベントを送信する">タグ・イベントを送信する。</h2>
+
+<p>セグメント配信を利用する際に、実装が必要となります。</p>
+
+<p><a href="/manual/growthpush/#セグメントの作成">配信したいセグメント</a>に沿って、タグやイベントの紐付けを行ってください。</p>
+
+<h3 id="タグ送信">タグ送信</h3>
+
+<pre><code class="language-objc">[[GrowthPush sharedInstance] setTag:@&quot;TagName&quot; value:@&quot;TagValue&quot;];
+</code></pre>
+
+<p><a href="/sdk/ios/reference/#タグの送信">setTagメソッドについて</a></p>
+
+<h3 id="イベント送信">イベント送信</h3>
+
+<pre><code class="language-objc">[[GrowthPush sharedInstance] trackEvent:@&quot;EventName&quot;];
+</code></pre>
+
+<p><a href="/sdk/ios/reference/#イベントの送信">trackEventメソッドについて</a></p>
+
+<h1 id="アプリ内メッセージ">アプリ内メッセージ</h1>
+
+<h2 id="メッセージを作成する">メッセージを作成する。</h2>
+
+<p>ここではアプリの起動時にメッセージを出す方法を説明します（共通初期設定でアプリの起動イベントを送信している必要があります）。</p>
+
+<p>まず、管理画面にてアプリ起動時に配信されるメッセージを作成します。メッセージの作成方法は<a href="/manual/growthmessage/#配信作成">こちら</a>を参考にしてください。</p>
+
+<p>アプリ起動以外にも、カスタムイベントをメッセージ配信のトリガーにすることにより、アプリの任意の場所でメッセージを配信することができます。詳しくは、<a href="/sdk/ios/reference/#カスタムイベント送信">こちら</a>をご参照ください。</p>
+
+<h2 id="メッセージを表示する">メッセージを表示する</h2>
+
+<p>Growth Pushのイベント送信と連動して、メッセージを受信します。</p>
+
+<p>イベント名に紐付いたメッセージを作成するだけで、メッセージ表示することはできます。デフォルトでは、メッセージ受信時に即時に表示します。</p>
+
+<p><code>ShowMessageHandler</code> を利用することで、表示準備が完了したときに、メッセージ表示をすることができます。</p>
+
+<p>例.) 起動時に、メッセージを表示する場合</p>
+
+<pre><code class="language-objc">[[GrowthPush sharedInstance] trackEvent:@&quot;Launch&quot; value:nil showMessage:^(void(^renderMessage)()){
+    renderMessage();
+} failure:^(NSString * detail) {
+
+}];
+</code></pre>
+
+<h1 id="ディープリンク">ディープリンク</h1>
+
+<h2 id="初期設定">初期設定</h2>
+
+<p>GrowthLinkのimport文を記述します。</p>
+
+<pre><code class="language-objc">#import &lt;Growthbeat/GrowthLink.h&gt;
+</code></pre>
+
+<h2 id="初期化処理">初期化処理</h2>
+
+<p>Growthbeatの初期化処理の後に、Growth Linkの初期化処理を呼び出してください。 <strong>APPLICATION_ID</strong> と <strong>CREDENTIAL_ID</strong> は
+Growthbeatの初期化時と同じものです。</p>
+
+<pre><code class="language-objc">[[GrowthLink sharedInstance] initializeWithApplicationId:@&quot;APPLICATION_ID&quot; credentialId:@&quot;CREDENTIAL_ID&quot;];
+</code></pre>
+
+<p>URL起動の処理で、handleOpenUrl:urlメソッドを呼び出す</p>
+
+<pre><code class="language-objc">- (BOOL) application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    [[GrowthLink sharedInstance] handleOpenUrl:url];
+    return YES;
+}
+</code></pre>
+
+<h2 id="プロジェクト設定">プロジェクト設定</h2>
+
+<h3 id="アプリを開くスキームの設定">アプリを開くスキームの設定</h3>
+
+<p>ディープリンクからアプリを起動できるように、info.plistの編集、もしくは Xcode上で Info -&gt; URL Typesからディープリンクからアプリを開くスキームの設定をします。
+URL Schemesにはスキームを、IdentifierにはBundle Identifierなどアプリごとに一意になる値を入力してください。
+<img src="/img/link/link-guide-scheme.png" alt="link-guide-scheme" title="link-guide-scheme" width="100%"/></p>
+
+<h3 id="バージョンの設定">バージョンの設定</h3>
+
+<p><code>General -&gt; Identity -&gt; Version</code>　が空欄であると正常に動作しません。
+正しいバージョンを指定してください。</p>
+
+<h3 id="universal-links用の設定-ios9-x系">Universal Links用の設定 (iOS9.x系)</h3>
+
+<p>iOS9 からカスタムスキームでの遷移に関する仕様が大幅に変更されました。なので iOS9.x 系に対応するには Universal Links の設定が必要になります。</p>
+
+<h4 id="apple-developer-com-での設定">apple.developer.com での設定</h4>
+
+<p>apple.developer.com にアクセスし “Certificate, Identifiers &amp; Profiles” を選択。
+その後&rdquo;Identifers&rdquo;をクリック。</p>
+
+<p><img src="/img/link/guide-universal-01.png" alt="guide-universal-01" title="guide-universal-01" width="70%"/></p>
+
+<p><img src="/img/link/guide-universal-02.png" alt="guide-universal-02" title="guide-universal-02" width="30%"/></p>
+
+<p>Identiferを登録済みの時は&rdquo;Edit&rdquo;から編集を、未登録のときは&rdquo;+&ldquo;ボタンから新たに登録をしていきます。</p>
+
+<p>NameやBundle IDは通常と同じ要領で記入してください。
+<img src="/img/link/guide-universal-03.png" alt="guide-universal-03" title="guide-universal-03" width="70%"/></p>
+
+<p>Bundle ID は Xcode 上のGeneralのタブを選択することで確認できます。</p>
+
+<p><img src="/img/link/guide-xcode-bundle.png" alt="guide-xcode-bundle" title="gguide-xcode-bundle" width="70%"/></p>
+
+<p>App Servicesの欄で、Associated Domainsにチェックをてください。これを忘れるとこのあとのXcode上の操作でエラーがでてしまいます。</p>
+
+<p><img src="/img/link/guide-universal-04.png" alt="guide-universal-04" title="guide-universal-04" width="70%"/></p>
+
+<p>apple.developer.com での設定は以上です。Saveボタンをおして保存してください。</p>
+
+<h4 id="xcode上-での設定">Xcode上 での設定</h4>
+
+<p>先ほどONにしたAssociated Domainsを使ってGrowthLinkのドメインを登録していきます。
+登録の前に、先ほど登録したApp Identifierと同じTeamが選択されていることを確認してください。TeamはGeneralタブにあるIdentityセクションから選択できます。</p>
+
+<p>CapabilitiesタブのAssociated Domainsをクリックすると展開されドメインの編集ができます。
+ここで、GrowthLinkのドメインとなるgbt.ioを登録します。
+＋ボタンをクリックし、&rdquo;applinks:gbt.io&rdquo;を追加してください。“applinks:”というのはprefixで登録ドメインの前につける必要があります。</p>
+
+<p><img src="/img/link/guide-universal-05.png" alt="guide-universal-05" title="guide-universal-05" width="70%"/></p>
+
+<p>現在、なんらかの原因でentitlementsファイルが生成されないことがあるようです。
+プロジェクトブラウザ上でentitlementsファイルが生成されていることを確認してください。
+<img src="/img/link/guide-universal-06.png" alt="guide-universal-06" title="guide-universal-06" width="70%"/></p>
+
+<p>また、entitlementsファイルがビルドに含まれている必要があります。含まれない場合はentitlementsファイルをクリックし、Targetにチェックが入っているか確認してください。</p>
+
+<p><strong>ハンドリング処理の実装</strong>
+AppDelegate.mにUniversal Linksのハンドリング処理を実装します。</p>
+
+<p><a href="http://faq.growthbeat.com/article/134-universallinks">Universal Links</a>専用リンクへの対応のため、以下のように実装してください。</p>
+
+<h4 id="universallinksの取得実装について">UniversalLinksの取得実装について</h4>
+
+<pre><code class="language-objc">#import &lt;Growthbeat/GrowthLink.h&gt; //インポートしておく
+
+
+- (BOOL) application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler{
+    if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
+        NSURL * webpageURL = userActivity.webpageURL;
+        [[GrowthLink sharedInstance] handleUniversalLinks:webpageURL];
+    }
+    return true;
+}
+
+</code></pre>
+
+<p>Xcode上での設定は以上になります。</p>
+
+<h2 id="ディープリンクアクションの実装">ディープリンクアクションの実装</h2>
+
+<p>SDKには、GBIntentHandlerというプロトコルが定義されており、この実装でディープリンク時のアクションを実装することができます。</p>
+
+<p>たとえば下記のような形で実装できます。</p>
+
+<pre><code class="language-objc">#import &lt;Growthbeat/GBCustomIntentHandler.h&gt;  //インポート文に追記
+</code></pre>
+
+<pre><code class="language-objc"> [[Growthbeat sharedInstance] addIntentHandler:[[GBCustomIntentHandler alloc] initWithBlock:^BOOL(GBCustomIntent *customIntent) {
+        NSDictionary * extra = customIntent.extra;
+        NSLog(@&quot;extra: %@&quot;, extra);
+        return YES;
+}]];
+</code></pre>
+
+<h3 id="growthlink管理画面上-での設定">GrowthLink管理画面上 での設定</h3>
+
+<p>「基本設定」タブ -&gt; リンク基本設定セクションから Universal Linksの設定ができます。
+「Universal Linkに対応させる」をチェックし、
+apple.developer.comに登録してあるBundle IdentifierとApple TeamIDを記入してください。どちらもapple.developer.comApp Identifiersから確認できます。
+記入後「保存」ボタンを押して設定を保存してください。</p>
+
+<p><img src="/img/link/guide-universal-07.png" alt="guide-universal-07" title="guide-universal-07" width="70%"/></p>
+
+<h3 id="検証の際の注意点">検証の際の注意点</h3>
+
+<ul>
+<li>検証の際はアプリを一度アンインストールし、インストールしなおしてください。この手順を踏まない場合古い設定のままになります。</li>
+<li>GrowthLinkの仕様上、Universal  Links用の設定については10分ごとに反映されます。検証をする際は設定を保存後10分以上経過した後に行ってください。</li>
+</ul>
+
+<h3 id="ランディングページを挟む場合の注意点">ランディングページを挟む場合の注意点</h3>
+
+<p>以下の記事を参考にしてください。</p>
+
+<p><a href="http://faq.growthbeat.com/article/114-universallink">【UniversalLinks】ランディングページにリンクを埋め込む際の注意点</a></p>
+
+<h1 id="growthbeat-sdk-1-xからの変更点">Growthbeat SDK 1.xからの変更点</h1>
+
+<h2 id="機能削除">機能削除</h2>
+
+<ul>
+<li><p>インターフェスの変更があります。</p>
+
+<ul>
+<li>次の実装変更点でご確認ください。</li>
+</ul></li>
+
+<li><p>GrowthAnalyticsクラスがなくなりました。</p>
+
+<ul>
+<li>2.x以降は、GrowthPush#setTag, trackEventをご利用ください。</li>
+</ul></li>
+
+<li><p>GrowthbeatCoreクラスが、Growthbeatクラスに統合されました。</p>
+
+<ul>
+<li>start, stop, initializeは削除されました。</li>
+</ul></li>
+</ul>
+
+<h2 id="実装変更点">実装変更点</h2>
+
+<h3 id="初期化">初期化</h3>
+
+<ul>
+<li>Growthbeat 1.x</li>
+</ul>
+
+<pre><code class="language-objc">- (BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+    [[Growthbeat sharedInstance] initializeWithApplicationId:@&quot;YOUR_APPLICATION_ID&quot; credentialId:@&quot;YOUR_CREDENTIAL_ID&quot;];
+    [[GrowthPush sharedInstance] requestDeviceTokenWithEnvironment:kGrowthPushEnvironment];
+    [[Growthbeat sharedInstance] getClient:^(GBClient* client) {
+        NSLog(@&quot;clientId is %@&quot;,client.id);
+    }];
+
+}
+
+- (void) applicationDidBecomeActive:(UIApplication *)application {
+    [[Growthbeat sharedInstance] start];
+}
+
+- (void) applicationWillResignActive:(UIApplication *)application {
+    [[Growthbeat sharedInstance] stop];
+}
+</code></pre>
+
+<ul>
+<li>Growthbeat 2.x</li>
+</ul>
+
+<pre><code class="language-objc">- (BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+    [[GrowthPush sharedInstance] initializeWithApplicationId:@&quot;YOUR_APPLICATION_ID&quot; credentialId:@&quot;YOUR_CREDENTIAL_ID&quot; environment:kGrowthPushEnvironment];
+	[[GrowthPush sharedInstance] requestDeviceToken];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        GBClient* client = [[Growthbeat sharedInstance] waitClient];
+        NSLog(@&quot;clientId is %@&quot;, client.id);
+    });
+
+}
+
+- (void) applicationDidBecomeActive:(UIApplication *)application {
+
+}
+
+- (void) applicationWillResignActive:(UIApplication *)application {
+
+}
+</code></pre>
+
+<h1 id="growth-push-sdkからの乗り換え方法について">Growth Push SDKからの乗り換え方法について</h1>
+
+<h2 id="前準備">前準備</h2>
+
+<p>GrowthPushのApplicationIdから、GrowthbeatのApplicationIdに移行されるた
+め、<a href="https://growthbeat.com/">Growthbeat</a>にアクセスして、ApplicationId、SDKキー（CredentialID）を確認します。</p>
+
+<p>ApplicationIdについては、Growth　Pushの左メニュー、シークレットキーのgrowthbeatApplicationIdという項目の左の文字列をご利用ください。</p>
+
+<p>SDKキーに関しては、Growthbeatマイページにてご確認ください。</p>
+
+<h2 id="注意点">注意点</h2>
+
+<p>これまでGrowth Pushでご利用いただいた、ApplicationIdは数値型、シークレットキーは文字列になっています。</p>
+
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>型</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>applicationId</td>
+<td>数値型</td>
+</tr>
+
+<tr>
+<td>secret</td>
+<td>文字列型/32文字</td>
+</tr>
+</tbody>
+</table>
+
+<p>Growthbeat SDKで利用するものは、applicationId、credentialIdともに文字列型になっています。</p>
+
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>型</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>applicationId</td>
+<td>文字列型/16文字</td>
+</tr>
+
+<tr>
+<td>credentailId</td>
+<td>文字列型/32文字</td>
+</tr>
+</tbody>
+</table>
+
+<p>Growthbeat SDK乗り換え時に、これまでGrowth Pushで利用していたシークレットキーを設定しても、正しく動作しませんのでご注意くださいませ。</p>
+
+<p>必ず、SDKキーをご利用ください。</p>
+
+<h2 id="実装方法">実装方法</h2>
+
+<h3 id="sdkの初期化">SDKの初期化</h3>
+
+<ul>
+<li><p>GrowthPush SDK</p>
+
+<ul>
+<li>EasyGrowthPushクラスをご利用の場合</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-objc">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [EasyGrowthPush setApplicationId:kYourApplicationId secret:@&quot;YOU_APP_SECRET&quot; environment:kGrowthPushEnvironment debug:YES];
+}
+</code></pre>
+
+<ul>
+<li>GrowthPushクラスをご利用の場合</li>
+</ul>
+
+<pre><code class="language-objc">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [GrowthPush setApplicationId:kYourApplicationId secret:@&quot;YOU_APP_SECRET&quot; environment:kGrowthPushEnvironment debug:YES];
+    [GrowthPush requestDeviceToken];
+    [GrowthPush setDeviceTags];
+}
+</code></pre>
+
+<ul>
+<li>Growthbeat SDK</li>
+</ul>
+
+<pre><code class="language-objc">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	// Growthbeat SDKの初期化
+	[[GrowthPush sharedInstance] initializeWithApplicationId:@&quot;YOUR_APPLICATION_ID&quot; credentialId:@&quot;YOUR_CREDENTIAL_ID&quot; environment:kGrowthPushEnvironment];
+	// デバイストークンを明示的に要求
+	[[GrowthPush sharedInstance] requestDeviceToken];
+
+	// deviceTagの取得
+	[[GrowthPush sharedInstance] setDeviceTags];
+}
+
+- (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+	// デバイストークンをGrowhPushに送信
+	[[GrowthPush sharedInstance] setDeviceToken:deviceToken];
+}
+</code></pre>
+
+<p>Growth Push SDKに存在したEasyGrowthPushクラスは、Growthbeat SDKでは廃止となっており、 <code>didRegisterForRemoteNotificationsWithDeviceToken</code> のデリゲートで、デバイストークンをGrowth Pushへ送信する実装を行う必要がございます。</p>
+
+<h3 id="アプリ起動時">アプリ起動時</h3>
+
+<ul>
+<li>Growthbeat SDK</li>
+</ul>
+
+<pre><code class="language-objc">- (void)applicationDidBecomeActive:(UIApplication *)application {
+	// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+
+	// バッチの削除
+	[[GrowthPush sharedInstance] clearBadge];
+
+	// Launchイベントの取得
+	[[GrowthPush sharedInstance] trackEvent:@&quot;Launch&quot;];
+}
+</code></pre>
+
+<h3 id="タグ-イベントの取得">タグ・イベントの取得</h3>
+
+<ul>
+<li>GrowthPush SDK</li>
+</ul>
+
+<pre><code class="language-objc">// タグの取得
+[GrowthPush setTag:@&quot;TAG_NAME&quot;];
+[GrowthPush setTag:@&quot;TAG_NAME&quot; value:@&quot;TAG_VALUE&quot;];
+// イベントの取得
+[GrowthPush trackEvent:@&quot;EVENT_NAME&quot;];
+[GrowthPush trackEvent:@&quot;EVENT_NAME&quot; value:@&quot;EVENT_VALUE&quot;];
+</code></pre>
+
+<ul>
+<li>Growthbeat SDK</li>
+</ul>
+
+<pre><code class="language-objc">// タグの取得
+[[GrowthPush sharedInstance] setTag:@&quot;TAG_NAME&quot;];
+[[GrowthPush sharedInstance] setTag:@&quot;TAG_NAME&quot; value:@&quot;TAG_VALUE&quot;];
+// イベントの取得
+[[GrowthPush sharedInstance] trackEvent:@&quot;EVENT_NAME&quot;];
+[[GrowthPush sharedInstance] trackEvent:@&quot;EVENT_NAME&quot; value:@&quot;EVENT_VALUE&quot;];
+</code></pre>
+
+<p>Growthbeat SDKは、シングルトンインスタンスの設計となっているため、実装の変更が必要となります。</p>
+
+<h2 id="移行確認方法">移行確認方法</h2>
+
+<p>ログに下記のようなものが発生していれば、Growthbeat SDK移行が正しく行われています。</p>
+
+<p>Growth Pushへの管理画面で、該当のGrowthPushClientIdのステータスが <code>Active</code> になっていれば、正しくプッシュ通知が行えます。</p>
+
+<pre><code>2016-03-16 20:31:52.743 GrowthbeatSample[1527:2124584] [GrowthbeatCore:INFO] convert client... (GrowthPushClientId:286049252, GrowthbeatClientId:PfbulyL0PsWOnCHj)
+2016-03-16 20:31:52.876 GrowthbeatSample[1527:2124584] [GrowthbeatCore:INFO] Client converted. (id:PfbulyL0PsWOnCHj)
+2016-03-16 20:31:52.969 GrowthbeatSample[1527:2124609] [GrowthPush:INFO] Create client... (growthbeatClientId: PfbulyL0PsWOnCHj, token: 0b466cb0529f435e80882ad87f5384ea8f44539307312cfc5301b0e1561b909f, environment: development)
+2016-03-16 20:31:53.199 GrowthbeatSample[1527:2124609] [GrowthPush:INFO] Create client success. (clientId: PfbulyL0PsWOnCHj)
+</code></pre>
+
+<h1 id="備考">備考</h1>
+
+<p>ご不明な点などございます場合は、<a href="http://growthbeat.helpscoutdocs.com/">ヘルプページ</a>を閲覧してください。</p>
+
+      </div>
+    </div>
+</section>
+
+
+  </div>
+</div>
+
+
+<footer class="footer">
+  <small class="copyright">Designed by SIROK</small>
+</footer>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+<script src="http://support.growthbeat.com/js/sirok-scrollspy.js"></script>
+<script>
+$(function() {
+  $('pre code, code').each(function(i, block) {
+    hljs.highlightBlock(block)
+  });
+
+  var sidebar = $('.column-sidebar');
+  var offset = sidebar.offset();
+
+  $(window).scroll(function () {
+    if ($(window).scrollTop() > offset.top - 20) {
+      sidebar.addClass('fixed');
+    } else {
+      sidebar.removeClass('fixed');
+    }
+  });
+
+  sidebar.find('ul').addClass('spy-nav');
+
+  $(document.body).scrollspy({
+    target: '#TableOfContents',
+  });
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+<script type="text/javascript">
+docsearch({
+ apiKey: '11fef466694af89257b9dc61a7b7fa20',
+ indexName: 'growthbeat',
+ inputSelector: '#algolia-search'
+});
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-56017268-6', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
+
+</div>
+</body>
+</html>

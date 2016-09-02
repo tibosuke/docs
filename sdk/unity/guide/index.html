@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="utf-8">
+
+  
+  <meta name="viewport" content="width=1040px, user-scalable=yes">
+
+  
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Growthbeat Unity Guideliene | Growthbeat | docs">
+  <meta property="og:url" content="http://support.growthbeat.com/sdk/unity/guide/">
+  <meta property="og:description" content="Growthbeat Unity の導入方法について説明します">
+  
+  <meta property="article:author" content="" />
+  <meta property="fb:app_id" content="" />
+  <meta property="og:site_name" content="Growthbeat | docs">
+
+  <title>
+      
+        Growthbeat Unity Guideliene | Growthbeat | docs
+      
+  </title>
+
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <link rel="stylesheet" href="http://support.growthbeat.com/css/main.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" />
+</head>
+
+<body>
+
+
+
+  
+
+
+
+
+  
+
+
+<div class="wrapper">
+
+
+
+<header class="navbar-header" role="banner">
+  <div class="container">
+    <nav class="header-nav">
+      <h1 class="logo">
+        <a class="link"href="https://growthbeat.com/">
+          <img src="http://support.growthbeat.com/img/lp_growthbeat_logo_big.png" alt="Growthbeat logo">
+        </a>
+      </h1>
+
+      <div class="search">
+        <input id="algolia-search" type="text" placeholder="サポートページを検索">
+      </div>
+      <div class="inquiry">
+        <a class="link" href="https://growthbeat.com/inquiry">お問い合わせ</a>
+      </div>
+      <div class="login">
+        <a class="link" href="https://growthbeat.com/">Growthbeat</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="navbar-subheader">
+  <div class="container">
+    <ul class="breadcrumb">
+      <li class="item">
+        <a class="link" href="http://support.growthbeat.com/">サポートページ</a>
+      </li>
+      <li class="item">
+        <a class="link" href="http://support.growthbeat.com/sdk/">SDKドキュメント</a>
+      </li>
+      
+      
+        <li class="item"><a class="link">ガイド</a></li>
+      
+      
+    </ul>
+  </div>
+</section>
+
+
+
+<div class="content">
+  <div class="container">
+
+<div class="page">
+  <h1 class="title">
+    
+      ガイド
+　　 
+    <span class="updated">最終更新日 Sun, Jun 7, 2015</span>
+  </h1>
+  <a class="edit" href="https://github.com/growthbeat/docs/blob/master/content/sdk/unity/guide.md">Edit on GitHub</a>
+</div>
+
+
+<section class="row markdown">
+    <div class="column column-sidebar">
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#共通初期設定">共通初期設定</a>
+<ul>
+<li><a href="#sdk導入">SDK導入</a>
+<ul>
+<li><a href="#growthbeat-unitypackageのインポート">growthbeat.unitypackageのインポート</a></li>
+</ul></li>
+<li><a href="#iosの初期設定">iOSの初期設定</a></li>
+<li><a href="#androidの初期設定">Androidの初期設定</a>
+<ul>
+<li><a href="#google-play-serviceの設定方法">Google Play Serviceの設定方法</a></li>
+<li><a href="#ライブラリの設定">ライブラリの設定</a></li>
+<li><a href="#パーミッションの設定">パーミッションの設定</a></li>
+<li><a href="#growthbeatの設定">Growthbeatの設定</a></li>
+</ul></li>
+<li><a href="#growthbeatの初期化">Growthbeatの初期化</a></li>
+</ul></li>
+<li><a href="#プッシュ通知">プッシュ通知</a>
+<ul>
+<li><a href="#devicetoken-registrationidの取得-送信">DeviceToken/RegistrationIdの取得・送信</a></li>
+<li><a href="#タグ-イベントを送信する">タグ・イベントを送信する。</a>
+<ul>
+<li><a href="#タグ送信">タグ送信</a></li>
+<li><a href="#イベント送信">イベント送信</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#アプリ内メッセージ">アプリ内メッセージ</a>
+<ul>
+<li><a href="#メッセージを作成する">メッセージを作成する</a></li>
+<li><a href="#メッセージを表示する">メッセージを表示する</a></li>
+</ul></li>
+<li><a href="#ディープリンク">ディープリンク</a>
+<ul>
+<li><a href="#初期化">初期化</a></li>
+<li><a href="#ディープリンクアクションの設定">ディープリンクアクションの設定</a></li>
+<li><a href="#os別設定">OS別設定</a>
+<ul>
+<li><a href="#ios設定">iOS設定</a></li>
+<li><a href="#android設定">Android設定</a></li>
+</ul></li>
+<li><a href="#カスタムハンドラ">カスタムハンドラ</a></li>
+</ul></li>
+<li><a href="#growthbeat-sdk-1-xからの変更点">Growthbeat SDK 1.xからの変更点</a>
+<ul>
+<li><a href="#機能削除">機能削除</a></li>
+<li><a href="#実装変更点">実装変更点</a>
+<ul>
+<li><a href="#初期化-1">初期化</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#growth-push-sdkからの乗り換え方法について">Growth Push SDKからの乗り換え方法について</a>
+<ul>
+<li><a href="#前準備">前準備</a></li>
+<li><a href="#注意点">注意点</a></li>
+<li><a href="#実装方法">実装方法</a>
+<ul>
+<li><a href="#sdkの初期化">SDKの初期化</a></li>
+<li><a href="#androidmanifest-xml">AndroidManifest.xml</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#備考">備考</a></li>
+</ul>
+</nav>
+    </div>
+    <div class="column column-main">
+      <div class="typeset">
+        
+
+<p>Version 2.0.4</p>
+
+<h1 id="共通初期設定">共通初期設定</h1>
+
+<h2 id="sdk導入">SDK導入</h2>
+
+<p>Growthbeat SDKで、Growthbeat全てのサービスの機能が利用できます。
+Unity 5以上の動作推奨をしています。
+Unityプラットフォームがサポートしていないバージョンについては、本SDKもサポート対象外となります。</p>
+
+<h3 id="growthbeat-unitypackageのインポート">growthbeat.unitypackageのインポート</h3>
+
+<p><a href="http://support.growthbeat.com/sdk/">最新版Unity SDK ダウンロードページ</a></p>
+
+<p>Unity 導入するプロジェクトに、growthbeat.unitypackageをインポートします。</p>
+
+<p>メニューから、<code>Assets -&gt; Import Package -&gt; Custom Package...</code> を選択し、でダウンロードしたUnityPackgeをインポートしてください。</p>
+
+<h2 id="iosの初期設定">iOSの初期設定</h2>
+
+<p>ビルド後、XcodeプロジェクトにGrowthbeat.frameworkをインポートをする必要があります。もしくは、ビルドスクリプトにて、Xcodeに自動的に組み込まれるようにしてください。</p>
+
+<p>Growthbeat.frameworkは、下記Frameworkが必須となります。</p>
+
+<ol>
+<li>Foundation.framework</li>
+<li>UIKit.framework</li>
+<li>CoreGraphics.framework</li>
+<li>SystemConfiguration.framework</li>
+<li>AdSupport.framework</li>
+<li>SafariServices.framework</li>
+</ol>
+
+<p>Xcodeプロジェクトに、依存するFrameworkを追加してください。</p>
+
+<h2 id="androidの初期設定">Androidの初期設定</h2>
+
+<h3 id="google-play-serviceの設定方法">Google Play Serviceの設定方法</h3>
+
+<p><a href="https://developers.google.com/android/guides/setup?hl=ja#add_google_play_services_to_your_project">Google公式ドキュメント</a></p>
+
+<p>Google Play Services v8.3以上が必要となります。Growthbeat SDKでは、Google Play Services v8.3以上でないと、正しく動作いたしません。</p>
+
+<h3 id="ライブラリの設定">ライブラリの設定</h3>
+
+<p><strong>Google Androidプロジェクトに書き出す場合（推奨）</strong></p>
+
+<p>UnityからGoogle Androidプロジェクト書き出して、Android Studioにインポートしてください。以下のリンクを参照してください。</p>
+
+<p><a href="http://docs.unity3d.com/ja/current/Manual/android-BuildProcess.html">Android Studioへのインポート方法</a></p>
+
+<p>インポート後、build.gradleに以下の設定をしてください。</p>
+
+<pre><code>dependencies {
+    // Android用のラッパーライブラリです。
+    compile files('libs/growthbeat-unity-wrapper.jar')
+    compile files('libs/unity-classes.jar')
+
+    // Androidのライブラリです。growthbeatのライブラリの機能に依存します。
+    compile &quot;com.android.support:appcompat-v7:23.3.0&quot;
+    compile 'com.google.android.gms:play-services-gcm:9.2.1'
+    compile 'com.google.android.gms:play-services-ads:9.2.1'
+
+    // Growthbeat SDK Android
+    compile 'com.growthbeat:growthbeat-android:2.0.4@aar'
+}
+</code></pre>
+
+<p><strong>Google Androidプロジェクトに書き出さない場合</strong></p>
+
+<p><a href="https://github.com/growthbeat/growthbeat-android/releases/tag/latest">growthbeat-android</a>をダウンロードし、 <code>release</code> フォルダ内の
+<code>growthbeat-x.x.x.jar</code> (x.x.xはバージョン番号) を、 <code>Assets/Plugins/Android/</code> にコピーしてください。</p>
+
+<p>growthbeat-x.x.x.jarに依存しているGoogle/Androidライブラリは下記になります。ライブラリは、android-sdk配下のextrasフォルダの任意の場所にございます。</p>
+
+<table>
+<thead>
+<tr>
+<th>ライブラリ</th>
+<th>場所</th>
+<th>備考</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>support-v4-x.x.x.aar</td>
+<td><code>extras/android/m2repository/com/android/support/support-v4/x.x.x/</code></td>
+<td>23.0.0以降をお使いください</td>
+</tr>
+
+<tr>
+<td>play-services-ads-x.x.x.aar</td>
+<td><code>extras/google/m2repository/com/google/android/gms/play-services-ads/x.x.x</code></td>
+<td>8.3.0以降をお使いください</td>
+</tr>
+
+<tr>
+<td>play-services-gcm-x.x.x.aar</td>
+<td><code>extras/google/m2repository/com/google/android/gms/play-services-gcm/x.x.x</code></td>
+<td>8.3.0以降をお使いください</td>
+</tr>
+</tbody>
+</table>
+
+<p>AndroidManifest.xml内の<code>@integer/google_play_services_version</code> には、直接バージョンを記入するか、 <code>Assets/Plugin/Android/value.xml</code> を作成してバージョン番号を記入してください。以下にvalue.xmlに直接書く場合を示します。</p>
+
+<pre><code class="language-xml"> &lt;resources&gt;
+     &lt;integer name=&quot;google_play_services_version&quot;&gt;8487000&lt;/integer&gt;
+ &lt;/resources&gt;
+</code></pre>
+
+<h3 id="パーミッションの設定">パーミッションの設定</h3>
+
+<p>AndroidManifestの設定は、Unityプロジェクト内で設定するか、Androidプロジェクトの吐き出し後に設定してください。</p>
+
+<pre><code class="language-xml">&lt;meta-data
+    android:name=&quot;com.google.android.gms.version&quot;
+    android:value=&quot;@integer/google_play_services_version&quot; /&gt;
+</code></pre>
+
+<p>必要なパーミッションは下記です。</p>
+
+<pre><code class="language-xml">&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;
+
+&lt;!-- for Growth Push --&gt;
+&lt;uses-permission android:name=&quot;com.google.android.c2dm.permission.RECEIVE&quot; /&gt;
+&lt;uses-permission android:name=&quot;android.permission.VIBRATE&quot; /&gt;
+&lt;uses-permission android:name=&quot;YOUR_PACKAGE_NAME.permission.C2D_MESSAGE&quot; /&gt;
+&lt;permission
+    android:name=&quot;YOUR_PACKAGE_NAME.permission.C2D_MESSAGE&quot;
+    android:protectionLevel=&quot;signature&quot; /&gt;
+</code></pre>
+
+<h3 id="growthbeatの設定">Growthbeatの設定</h3>
+
+<p><code>&lt;application&gt;</code>タグ内に下記を追加してください。</p>
+
+<pre><code class="language-xml">&lt;!-- for Growth Push --&gt;
+&lt;meta-data android:name=&quot;com.growthpush.notification.icon&quot; android:resource=&quot;@drawable/sample_notification_icon&quot; /&gt;
+&lt;meta-data android:name=&quot;com.growthpush.notification.icon.background.color&quot; android:resource=&quot;@android:color/white&quot; /&gt;
+&lt;meta-data android:name=&quot;com.growthpush.dialog.icon&quot; android:resource=&quot;@drawable/sample_notification_icon&quot; /&gt;
+&lt;activity
+    android:name=&quot;com.growthpush.view.AlertActivity&quot;
+    android:configChanges=&quot;orientation|keyboardHidden&quot;
+    android:launchMode=&quot;singleInstance&quot;
+    android:theme=&quot;@android:style/Theme.Translucent&quot; /&gt;
+&lt;service
+    android:name=&quot;com.growthpush.TokenRefreshService&quot;
+    android:exported=&quot;false&quot;&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.google.android.gms.iid.InstanceID&quot;/&gt;
+    &lt;/intent-filter&gt;
+&lt;/service&gt;
+&lt;service android:name=&quot;com.growthpush.RegistrationIntentService&quot;/&gt;
+&lt;service
+    android:name=&quot;com.growthpush.ReceiverService&quot;
+    android:exported=&quot;false&quot; &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.google.android.c2dm.intent.RECEIVE&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/service&gt;
+&lt;receiver
+    android:name=&quot;com.google.android.gms.gcm.GcmReceiver&quot;
+    android:exported=&quot;true&quot;
+    android:permission=&quot;com.google.android.c2dm.permission.SEND&quot; &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.google.android.c2dm.intent.RECEIVE&quot; /&gt;
+        &lt;category android:name=&quot;YOUR_PACKAGE_NAME&quot; /&gt;
+    &lt;/intent-filter&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.google.android.c2dm.intent.REGISTRATION&quot; /&gt;
+        &lt;category android:name=&quot;YOUR_PACKAGE_NAME&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;
+
+&lt;!-- for Growth Message --&gt;
+&lt;activity
+    android:name=&quot;com.growthbeat.message.view.MessageActivity&quot;
+    android:theme=&quot;@android:style/Theme.Translucent&quot; /&gt;
+
+&lt;!-- for Growth Link --&gt;
+&lt;receiver
+    android:name=&quot;com.growthbeat.link.InstallReferrerReceiver&quot;
+    android:enabled=&quot;true&quot;
+    android:exported=&quot;true&quot; &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.android.vending.INSTALL_REFERRER&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;
+</code></pre>
+
+<p>※ <code>YOUR_PACKAGE_NAME</code>は、実装するアプリのパッケージ名に変更してください。</p>
+
+<p>AndroidManifest.xmlのサンプルは、<a href="https://github.com/growthbeat/growthbeat-android/blob/master/sample/src/main/AndroidManifest.xml">こちら</a></p>
+
+<h2 id="growthbeatの初期化">Growthbeatの初期化</h2>
+
+<pre><code class="language-cs">GrowthPush.GetInstance().Initialize(&quot;YOUR_APPLICATION_ID&quot;, &quot;YOUR_CREDENTIAL_ID&quot;, Debug.isDebugBuild ? GrowthPush.Environment.Development : GrowthPush.Environment.Production);
+</code></pre>
+
+<h1 id="プッシュ通知">プッシュ通知</h1>
+
+<p>Growth Push管理画面、証明書設定ページにて、各OSごとに証明書の設定を行ってください。</p>
+
+<p><a href="http://growthhack.sirok.co.jp/growthpush/ios-p12/">iOSプッシュ通知証明書作成方法</a></p>
+
+<p>また、iOSの場合、Provisioning Profileの設定をする必要があります。</p>
+
+<p>XcodeプロジェクトのBuild Setting &gt; Provisioning Profileの設定をしてください。誤った設定方法となりますと、デバイストークンの取得ができません。</p>
+
+<p><a href="http://growthhack.sirok.co.jp/growthpush/gcm-api/">Android SenderId, APIキー取得方法</a></p>
+
+<h2 id="devicetoken-registrationidの取得-送信">DeviceToken/RegistrationIdの取得・送信</h2>
+
+<p>デバイストークンを取得するタイミングで下記を実装してください。</p>
+
+<pre><code class="language-cs">GrowthPush.GetInstance().RequestDeviceToken(&quot;YOUR_SENDER_ID&quot;);
+</code></pre>
+
+<p>Environmentは、開発環境の場合、Environment.Developmentを指定、本番環境の場合は、Environment.Productionを指定してください。</p>
+
+<p><strong>iOSデバイストークン取得</strong></p>
+
+<p>iOSの場合、デバイストークンがNotificationServicesから戻ってきますので、UpdateにてSetDeviceTokenを実装し、登録処理を流します。</p>
+
+<pre><code class="language-cs">#if UNITY_IPHONE
+using NotificationServices = UnityEngine.iOS.NotificationServices;
+#endif
+
+bool tokenSent = false;
+
+void Update () {
+    #if UNITY_IPHONE
+        if (!tokenSent) {
+            byte[] token = NotificationServices.deviceToken;
+            if (token != null) {
+                GrowthPush.GetInstance ().SetDeviceToken(System.BitConverter.ToString(token).Replace(&quot;-&quot;, &quot;&quot;).ToLower());
+                tokenSent = true;
+            }
+        }
+    #endif
+}
+</code></pre>
+
+<p><strong>Androidデバイストークン取得</strong></p>
+
+<p>初期化の処理の後に、必ず実行してください。</p>
+
+<pre><code class="language-cs">string devicetoken = GrowthPush.GetInstance ().GetDeviceToken ();
+Log.Debug(devicetoken);
+</code></pre>
+
+<h2 id="タグ-イベントを送信する">タグ・イベントを送信する。</h2>
+
+<p>セグメント配信を利用する際に、実装が必要となります。</p>
+
+<p><a href="/manual/growthpush/#セグメントの作成">配信したいセグメント</a>に沿って、タグやイベントの紐付けを行ってください。</p>
+
+<h3 id="タグ送信">タグ送信</h3>
+
+<pre><code class="language-cs">GrowthPush.GetInstance().SetTag(&quot;TagName&quot;, &quot;TagValue&quot;);
+</code></pre>
+
+<p><a href="/sdk/unity/reference/#タグの送信">setTagメソッドについて</a></p>
+
+<h3 id="イベント送信">イベント送信</h3>
+
+<pre><code class="language-cs">GrowthPush.GetInstance().TrackEvent(&quot;EventName&quot;);
+</code></pre>
+
+<p><a href="/sdk/unity/reference/#イベントの送信">trackEventメソッドについて</a></p>
+
+<h1 id="アプリ内メッセージ">アプリ内メッセージ</h1>
+
+<h2 id="メッセージを作成する">メッセージを作成する</h2>
+
+<p>ここではアプリの起動時にメッセージを出す方法を説明します（共通初期設定でアプリの起動イベントを送信している必要があります）。</p>
+
+<p>まず、管理画面にてアプリ起動時に配信されるメッセージを作成します。メッセージの作成方法は<a href="/manual/growthmessage/#配信作成">こちら</a>を参考にしてください。</p>
+
+<h2 id="メッセージを表示する">メッセージを表示する</h2>
+
+<p>Growth Pushのイベント送信と連動して、メッセージを受信します。</p>
+
+<p>イベント名に紐付いたメッセージを作成するだけで、メッセージ表示することはできます。デフォルトでは、メッセージ受信時に即時に表示します。</p>
+
+<p>TrackEventに引数を追加することで、ゲームオブジェクト上に、コールバックすることができます。</p>
+
+<p>ex.)</p>
+
+<pre><code class="language-cs">public class GrowthbeatComponent : MonoBehaviour
+{
+    void Awake ()
+	{
+        GrowthPush.getInstance().TrackEvent(&quot;Launch&quot;,&quot;&quot;,&quot;GrowthbeatComponent&quot;,&quot;ShowMessage&quot;);
+    }
+
+    void ShowMessage (string uuid) {
+        // wait frame
+        // ....
+        GrowthPush.GetInstance ().RenderMessage (uuid);
+    }
+
+}
+</code></pre>
+
+<h1 id="ディープリンク">ディープリンク</h1>
+
+<h2 id="初期化">初期化</h2>
+
+<p>Growth Linkの初期化実装は下記になります。</p>
+
+<pre><code class="language-cs">IntentHandler.GetInstance ().AddNoopIntentHandler ();
+IntentHandler.GetInstance ().AddUrlIntentHandler ();
+IntentHandler.GetInstance ().AddCustomIntentHandler (&quot;GrowthbeatComponent&quot;, &quot;HandleCustomIntent&quot;);
+GrowthLink.GetInstance().Initialize (applicationId, credentialId);
+</code></pre>
+
+<h2 id="ディープリンクアクションの設定">ディープリンクアクションの設定</h2>
+
+<p>クリックしたリンクに付与されたデータがGrowthbeatComponentのHandleCustomIntentに渡ってきます。
+ここにページ遷移やAPI利用などの処理を実装してください。</p>
+
+<pre><code class="language-cs">void HandleCustomIntent(string extra) {
+		Debug.Log(&quot;Enter HandleCustomIntent&quot;);
+		Debug.Log(extra);
+}
+</code></pre>
+
+<h2 id="os別設定">OS別設定</h2>
+
+<h3 id="ios設定">iOS設定</h3>
+
+<p>共通初期設定に追加で、</p>
+
+<ul>
+<li>SafariServices.frameworkのインポート</li>
+</ul>
+
+<p>が必要です。</p>
+
+<p><a href="http://support.growthbeat.com/sdk/ios/guide/#プロジェクト設定">Growth Link iOSの設定方法について</a></p>
+
+<h3 id="android設定">Android設定</h3>
+
+<p><strong>カスタムスキームの設定</strong></p>
+
+<p>AndroidManifestのアクティビティーに <code>&lt;intent-filter&gt;</code> を追加します。</p>
+
+<p>外部からの遷移時、開くActivityにカスタムURLスキームを記述します。</p>
+
+<pre><code class="language-xml">&lt;activity
+    android:name=&quot;.UnityPlayerActivity&quot;
+    android:label=&quot;@string/app_name&quot; &gt;
+
+    &lt;!-- 略 --&gt;
+
+    &lt;intent-filter&gt;
+    	&lt;data android:scheme=&quot;CUSTOM_URL_SCHEME&quot; /&gt;
+    	&lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;
+    	&lt;category android:name=&quot;android.intent.category.BROWSABLE&quot; /&gt;
+        &lt;action android:name=&quot;android.intent.action.VIEW&quot; /&gt;
+    &lt;/intent-filter&gt;
+
+    &lt;!-- 略 --&gt;
+
+&lt;/activity&gt;
+</code></pre>
+
+<p><strong>InstallReferrerReceiverの追加</strong></p>
+
+<p>AndroidManifestの<code>&lt;application/&gt;</code>内に以下のコードを追加してください</p>
+
+<pre><code class="language-xml">&lt;receiver
+    android:name=&quot;com.growthbeat.link.InstallReferrerReceiver&quot;
+    android:enabled=&quot;true&quot;
+    android:exported=&quot;true&quot; &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.android.vending.INSTALL_REFERRER&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;
+</code></pre>
+
+<h2 id="カスタムハンドラ">カスタムハンドラ</h2>
+
+<p>Growth Link, Growth Messageでカスタムの処理をする場合は、下記を実装します。</p>
+
+<pre><code class="language-cs">IntentHandler.GetInstance ().AddCustomIntentHandler (&quot;GameObject&quot;, &quot;CallbackMethod&quot;);
+</code></pre>
+
+<p>処理を戻す、ゲームオブジェクト、コールバックする処理を指定してください。</p>
+
+<pre><code class="language-cs">
+public class GrowthbeatComponent : MonoBehaviour
+{
+
+    void Awake ()
+    {
+        IntentHandler.GetInstance ().AddCustomIntentHandler (&quot;GrowthbeatComponent&quot;, &quot;HandleCustomIntent&quot;);
+    }
+
+    void HandleCustomIntent(string extra) {
+        Debug.Log(&quot;Enter HandleCustomIntent&quot;);
+        Debug.Log(extra);
+    }
+
+}
+</code></pre>
+
+<h1 id="growthbeat-sdk-1-xからの変更点">Growthbeat SDK 1.xからの変更点</h1>
+
+<h2 id="機能削除">機能削除</h2>
+
+<ul>
+<li><p>インターフェスの変更があります。</p>
+
+<ul>
+<li>次の実装変更点でご確認ください。</li>
+</ul></li>
+
+<li><p>GrowthAnalyticsクラスがなくなりました。</p>
+
+<ul>
+<li>2.x以降は、GrowthPush#setTag, trackEventをご利用ください。</li>
+</ul></li>
+
+<li><p>GrowthbeatCoreクラスが、Growthbeatクラスに統合されました。</p>
+
+<ul>
+<li>start, stop, initializeは削除されました。</li>
+</ul></li>
+</ul>
+
+<h2 id="実装変更点">実装変更点</h2>
+
+<h3 id="初期化-1">初期化</h3>
+
+<ul>
+<li>Growthbeat 1.x</li>
+</ul>
+
+<pre><code class="language-csharp">void Awake () {
+    Growthbeat.GetInstance ().Initialize (&quot;YOUR_APPLICATION_ID&quot;, &quot;CREDENTIAL_ID&quot;);
+    GrowthPush.GetInstance ().RequestDeviceToken (&quot;YOUR_SENDER_ID&quot;, Debug.isDebugBuild ? GrowthPush.Environment.Development : GrowthPush.Environment.Production);
+    Growthbeat.GetInstance ().Start ();
+}
+
+void OnDisable ()
+{
+    Growthbeat.GetInstance ().Stop ();
+}
+</code></pre>
+
+<ul>
+<li>Growthbeat 2.x</li>
+</ul>
+
+<pre><code class="language-csharp">void Awake () {
+    GrowthPush.GetInstance ().Initialize (&quot;YOUR_APPLICATION_ID&quot;, &quot;CREDENTIAL_ID&quot;, Debug.isDebugBuild ? GrowthPush.Environment.Development : GrowthPush.Environment.Production);
+    GrowthPush.GetInstance ().RequestDeviceToken (&quot;YOUR_SENDER_ID&quot;);
+}
+
+void OnDisable ()
+{
+
+}
+</code></pre>
+
+<h1 id="growth-push-sdkからの乗り換え方法について">Growth Push SDKからの乗り換え方法について</h1>
+
+<h2 id="前準備">前準備</h2>
+
+<p>GrowthPushのApplicationIdから、GrowthbeatのApplicationIdに移行されるため、<a href="https://growthbeat.com/">Growthbeat</a>にアクセスして、ApplicationId、SDKキー（CredentialID）を確認します。</p>
+
+<h2 id="注意点">注意点</h2>
+
+<p>これまでGrowth Pushでご利用いただいた、ApplicationIdは数値型、シークレットキーは文字列になっています。</p>
+
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>型</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>applicationId</td>
+<td>数値型</td>
+</tr>
+
+<tr>
+<td>secret</td>
+<td>文字列型/32文字</td>
+</tr>
+</tbody>
+</table>
+
+<p>Growthbeat SDKで利用するものは、applicationId、credentialIdともに文字列型になっています。</p>
+
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>型</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>applicationId</td>
+<td>文字列型/16文字</td>
+</tr>
+
+<tr>
+<td>credentailId</td>
+<td>文字列型/32文字</td>
+</tr>
+</tbody>
+</table>
+
+<p>Growthbeat SDK乗り換え時に、これまでGrowth Pushで利用していたシークレットキーを設定しても、正しく動作しませんのでご注意くださいませ。</p>
+
+<p>必ず、SDKキーをご利用ください。</p>
+
+<h2 id="実装方法">実装方法</h2>
+
+<h3 id="sdkの初期化">SDKの初期化</h3>
+
+<p>Growthbeat SDKでは、iOSのデバイストークン取得部分をUnity上に記述する必要があります。</p>
+
+<p>Growtbeat SDKでは、シングルトンインスタンスの設計に変更したため、これまでの実装部分を変更していただく必要がございます。</p>
+
+<ul>
+<li>GrowthPush SDK</li>
+</ul>
+
+<pre><code class="language-csharp">void Awake () {
+	GrowthPush.Initialize(YOUR_APPLICATION_ID, &quot;APPLICATION_SECRET&quot;, GrowthPush.Environment.Development, true, &quot;YOUR_SENDER_ID&quot;);
+	GrowthPush.TrackEvent(&quot;Launch&quot;);
+	GrowthPush.SetDeviceTags();
+	GrowthPush.ClearBadge();
+}
+</code></pre>
+
+<ul>
+<li>Growthbeat SDK</li>
+</ul>
+
+<pre><code class="language-csharp">
+#if UNITY_IPHONE
+using NotificationServices = UnityEngine.iOS.NotificationServices;
+#endif
+
+public class YourGameObjectComponent : MonoBehaviour
+{
+
+    void Awake () {
+    	// Growthbeat SDKの初期化
+    	Growthbeat.GetInstance ().Initialize (&quot;YOUR_APPLICATION_ID&quot;, &quot;CREDENTIAL_ID&quot;);
+
+    	// デバイストークンを明示的に要求
+    	GrowthPush.GetInstance ().RequestDeviceToken (&quot;YOUR_SENDER_ID&quot;, Debug.isDebugBuild ? GrowthPush.Environment.Development : GrowthPush.Environment.Production);
+
+    	// バッチの削除
+    	GrowthPush.GetInstance ().ClearBadge ();
+
+    	// Launchイベントの取得
+    	GrowthPush.GetInstance ().TrackEvent (&quot;Launch&quot;);
+
+    	// DeviceTagの取得
+    	GrowthPush.GetInstance ().SetDeviceTags ();
+    }
+
+	bool tokenSent = false;
+	void Update ()
+	{
+	#if UNITY_IPHONE
+		if (!tokenSent) {
+			byte[] token = NotificationServices.deviceToken;
+			if (token != null) {
+				GrowthPush.GetInstance ().SetDeviceToken(System.BitConverter.ToString(token).Replace(&quot;-&quot;, &quot;&quot;).ToLower());
+				tokenSent = true;
+			}
+		}
+	#endif
+	}
+}
+</code></pre>
+
+<h3 id="androidmanifest-xml">AndroidManifest.xml</h3>
+
+<p>Growthbeat SDKでは、 <code>com.growthpush.BroadcastReceiver</code>が廃止になりましたので、変更が必要となります。</p>
+
+<p>この変更を行わないと、正しくプッシュ通知が送信できなくなりますので、ご注意ください。</p>
+
+<ul>
+<li>GrowthPush SDK</li>
+</ul>
+
+<pre><code class="language-xml">&lt;receiver
+    android:name=&quot;com.growthpush.BroadcastReceiver&quot;
+    android:permission=&quot;com.google.android.c2dm.permission.SEND&quot; &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.google.android.c2dm.intent.RECEIVE&quot; /&gt;
+        &lt;action android:name=&quot;com.google.android.c2dm.intent.REGISTRATION&quot; /&gt;
+
+        &lt;category android:name=&quot;YOUR_PACKAGE_NAME&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;
+</code></pre>
+
+<ul>
+<li>Growthbeat SDK</li>
+</ul>
+
+<pre><code class="language-xml">&lt;service
+    android:name=&quot;com.growthpush.TokenRefreshService&quot;
+    android:exported=&quot;false&quot;&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.google.android.gms.iid.InstanceID&quot;/&gt;
+    &lt;/intent-filter&gt;
+&lt;/service&gt;
+&lt;service android:name=&quot;com.growthpush.RegistrationIntentService&quot;/&gt;
+&lt;service
+    android:name=&quot;com.growthpush.ReceiverService&quot;
+    android:exported=&quot;false&quot; &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.google.android.c2dm.intent.RECEIVE&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/service&gt;
+&lt;receiver
+    android:name=&quot;com.google.android.gms.gcm.GcmReceiver&quot;
+    android:exported=&quot;true&quot;
+    android:permission=&quot;com.google.android.c2dm.permission.SEND&quot; &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.google.android.c2dm.intent.RECEIVE&quot; /&gt;
+        &lt;category android:name=&quot;YOUR_PACKAGE_NAME&quot; /&gt;
+    &lt;/intent-filter&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.google.android.c2dm.intent.REGISTRATION&quot; /&gt;
+        &lt;category android:name=&quot;YOUR_PACKAGE_NAME&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;
+</code></pre>
+
+<h1 id="備考">備考</h1>
+
+<p>実装サンプルは、<a href="https://github.com/growthbeat/growthbeat-unity">GitHubレポジトリ</a>を参考にしてください。</p>
+
+<p>ご不明な点などございます場合は、<a href="http://faq.growthbeat.com/">ヘルプページ</a>を閲覧してください。</p>
+
+      </div>
+    </div>
+</section>
+
+
+  </div>
+</div>
+
+
+<footer class="footer">
+  <small class="copyright">Designed by SIROK</small>
+</footer>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+<script src="http://support.growthbeat.com/js/sirok-scrollspy.js"></script>
+<script>
+$(function() {
+  $('pre code, code').each(function(i, block) {
+    hljs.highlightBlock(block)
+  });
+
+  var sidebar = $('.column-sidebar');
+  var offset = sidebar.offset();
+
+  $(window).scroll(function () {
+    if ($(window).scrollTop() > offset.top - 20) {
+      sidebar.addClass('fixed');
+    } else {
+      sidebar.removeClass('fixed');
+    }
+  });
+
+  sidebar.find('ul').addClass('spy-nav');
+
+  $(document.body).scrollspy({
+    target: '#TableOfContents',
+  });
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+<script type="text/javascript">
+docsearch({
+ apiKey: '11fef466694af89257b9dc61a7b7fa20',
+ indexName: 'growthbeat',
+ inputSelector: '#algolia-search'
+});
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-56017268-6', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
+
+</div>
+</body>
+</html>
